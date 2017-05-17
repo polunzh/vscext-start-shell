@@ -12,22 +12,26 @@ A Visual Studio Code extension for opening git shell on windows.
 }
 ```
 
-### shellPath
+### startgit configurations
+- shellPath *required*: It's the `git-bash.exe`(not `git-cmd.exe`) file in `git installation directory`
+- cwd *option*: Default is current `vsc rootpath`
 
-*required*
+#### Default Key Binding
+> `ctrl+alt+g`
 
-It's the `git-bash.exe`(not `git-cmd.exe`) file in `git installation directory`
+### startshell
 
-### cwd
+#### Configurations
 
-*option*
+``` json
+"startshell": {
+    "shells": [{
+        "name": "{shell name}",
+        "path": "{shell path}",
+    }]
+}
+```
 
-Default is current `vsc rootpath`
-
-## Default Key Binding
-
-`ctrl+alt+g`
-
-## More
-- [details doc](https://github.com/polunzh/app/blob/master/start-git/README.md)
-- [issue](https://github.com/polunzh/app/issues)
+#### Usage
+- `ctrl + shift + p` > input `start shell` > select your shell
+- `ctrl + shift + s` > select your shell

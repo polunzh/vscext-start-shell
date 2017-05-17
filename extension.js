@@ -13,11 +13,43 @@ function activate(context) {
         });
 
         child.on('error', (err) => {
-            console.error('start git shell error:' + err);
+            vscode.window.showErrorMessage('start  shell error:' + err);
         });
     });
 
+    var shellDisposable = vscode.commands.registerCommand('extension.startshell', () => {
+        let shells = readShells();
+        let cwd = vscode.workspace.rootPath;
+        if (!shells) {
+            vscode.window.showErrorMessage('Please set shells path first!');
+            return;
+        }
+        vscode.window.showQuickPick(Object.keys(shells))
+            .then((item) => {
+                if (!item) return;
+                const child = spawn('cmd.exe', ['/c', 'start', shells[item]], {
+                    cwd
+                });
+
+                child.on('error', (err) => {
+                    vscode.window.showErrorMessage('start  shell error:' + err);
+                });
+            });
+    });
+
     context.subscriptions.push(disposable);
+    context.subscriptions.push(shellDisposable);
+}
+
+function readShells() {
+    const config = vscode.workspace.getConfiguration('startshell');
+    const shells = config.get('shells');
+    const result = {};
+    shells.forEach((shell) => {
+        result[shell.name] = shell.path;
+    });
+
+    return result;
 }
 
 function readOptions() {
