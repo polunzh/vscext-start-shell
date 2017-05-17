@@ -2,7 +2,7 @@
     "name": "start-git",
     "displayName": "start-git",
     "description": "start git bash on windows",
-    "version": "0.0.3",
+    "version": "0.0.5",
     "publisher": "polunzh",
     "icon": "start-git.png",
     "engines": {
@@ -12,17 +12,24 @@
         "Other"
     ],
     "activationEvents": [
-        "onCommand:extension.startGit"
+        "onCommand:extension.startGit",
+        "onCommand:extension.startshell"
     ],
     "main": "./extension",
     "contributes": {
         "commands": [{
             "command": "extension.startGit",
             "title": "start git bash"
+        }, {
+            "command": "extension.startshell",
+            "title": "start shell"
         }],
         "keybindings": [{
             "command": "extension.startGit",
             "key": "ctrl+alt+g"
+        }, {
+            "command": "extension.startshell",
+            "key": "ctrl+alt+s"
         }]
     },
     "scripts": {
