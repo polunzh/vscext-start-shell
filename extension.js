@@ -2,13 +2,15 @@ const vscode = require('vscode');
 const spawn = require('child_process').spawn;
 
 function activate(context) {
+    const cwd = vscode.workspace.rootPath;
     var disposable = vscode.commands.registerCommand('extension.startGit', function () {
-        const {
-            shellPath,
-            cwd
-        } = readOptions();
+        const path = readOptions();
+        if (!path) {
+            vscode.window.showErrorMessage('Please set git shell path first!');
+            return;
+        }
 
-        const child = spawn('cmd.exe', ['/c', 'start', shellPath], {
+        const child = spawn('cmd.exe', ['/c', 'start', path], {
             cwd
         });
 
@@ -19,20 +21,20 @@ function activate(context) {
 
     var shellDisposable = vscode.commands.registerCommand('extension.startshell', () => {
         const shells = readShells();
-        const cwd = vscode.workspace.rootPath;
         if (!shells) {
             vscode.window.showErrorMessage('Please set shells path first!');
             return;
         }
+
         vscode.window.showQuickPick(Object.keys(shells))
             .then((item) => {
                 if (!item) return;
                 const child = spawn('cmd.exe', ['/c', 'start', shells[item]], {
-                    cwd
+                    cwd: cwd
                 });
 
                 child.on('error', (err) => {
-                    vscode.window.showErrorMessage('start  shell error:' + err);
+                    vscode.window.showErrorMessage('start shell error:' + err);
                 });
             });
     });
@@ -57,22 +59,10 @@ function readShells() {
 
 function readOptions() {
     const config = vscode.workspace.getConfiguration('startgit');
-    const shellPath = config.get('shellPath');
-    let cwd = config.get('cwd');
+    const path = config.get('shellPath') || config.get('path');
 
-    if (!shellPath) {
-        vscode.window.showErrorMessage('Please set git shell path first!');
-        return;
-    }
 
-    if (!cwd) {
-        cwd = vscode.workspace.rootPath;
-    }
-
-    return {
-        shellPath,
-        cwd
-    };
+    return path;
 }
 
 exports.activate = activate;

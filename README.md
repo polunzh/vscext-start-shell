@@ -16,9 +16,7 @@ A Visual Studio Code extension for opening shell on windows.
 }
 ```
 
-### startgit configurations
-- shellPath *required*: It's the `git-bash.exe`(not `git-cmd.exe`) file in `git installation directory`
-- cwd *option*: Default is current `vsc rootpath`
+> shellPath *required*: It's the `git-bash.exe`(not `git-cmd.exe`) file in `git installation directory`
 
 #### Default Key Binding
 > `ctrl+alt+g`
