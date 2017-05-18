@@ -1,8 +1,12 @@
-# start-git
+# start shells
 
-A Visual Studio Code extension for opening git shell on windows.
+A Visual Studio Code extension for opening shell on windows.
 
-## Configurations
+## 1. start-git
+
+> This can be replaced by new feature [startshell](#startshell)
+
+### Configurations
 ``` json
 {
     "startgit": {
@@ -19,9 +23,9 @@ A Visual Studio Code extension for opening git shell on windows.
 #### Default Key Binding
 > `ctrl+alt+g`
 
-### startshell
+## 2. <a name="startshell">startshell</a>
 
-#### Configurations
+### Configurations
 
 ``` json
 "startshell": {
@@ -32,6 +36,6 @@ A Visual Studio Code extension for opening git shell on windows.
 }
 ```
 
-#### Usage
+### Usage
 - `ctrl + shift + p` > input `start shell` > select your shell
 - `ctrl + shift + s` > select your shell

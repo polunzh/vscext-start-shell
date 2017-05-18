@@ -18,8 +18,8 @@ function activate(context) {
     });
 
     var shellDisposable = vscode.commands.registerCommand('extension.startshell', () => {
-        let shells = readShells();
-        let cwd = vscode.workspace.rootPath;
+        const shells = readShells();
+        const cwd = vscode.workspace.rootPath;
         if (!shells) {
             vscode.window.showErrorMessage('Please set shells path first!');
             return;
@@ -43,7 +43,10 @@ function activate(context) {
 
 function readShells() {
     const config = vscode.workspace.getConfiguration('startshell');
+
     const shells = config.get('shells');
+    if (!shells) return;
+
     const result = {};
     shells.forEach((shell) => {
         result[shell.name] = shell.path;
@@ -74,5 +77,5 @@ function readOptions() {
 
 exports.activate = activate;
 
-function deactivate() {}
+function deactivate() { }
 exports.deactivate = deactivate;
